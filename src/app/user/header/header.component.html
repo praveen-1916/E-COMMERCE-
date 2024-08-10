@@ -1,0 +1,79 @@
+<nav class="navbar navbar-expand-md bg-body-tertiary">
+    <div class="container-xl">
+        <a class="navbar-brand" href="#">
+            <img src="https://www.svgrepo.com/show/515013/bigbasket.svg" alt="">
+        </a>
+        <div class="nav-item dropdown flex-end" (click)="toShowCategories()">
+            <a class="nav-link dropdown-toggle" role="button" style="font-size: 0.95rem;">
+                <div style="font-size: 0.78rem;">Shop by</div>Category
+            </a>
+            <ul [ngClass]="prodSrv.category?'dropdown-menu show':'dropdown-menu'" id="dropdownCategories">
+                <li>
+                    <a class="dropdown-item" *ngFor="let category of allParentCategories" style="cursor: pointer;"
+                        (mouseover)="childCategories(category.categoryId)"
+                        [routerLink]="[ 'category', category.categoryId ]"
+                        [queryParams]="{'category':category.categoryName}">{{category.categoryName}}
+                    </a>
+                    <ul [class]="childCatToShow?'dropdown-menu show':'dropdown-menu'"
+                        style="top: 0;left: 13rem;border-radius: 0;border-left: none;" #childUl>
+                        <li>
+                            <a class="dropdown-item" *ngFor="let child of childCatToShow" style="cursor: pointer;"
+                                [routerLink]="[ 'category', child.categoryId ]"
+                                [queryParams]="{'category':child.categoryName}">{{child.categoryName}}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon" (click)="toShowNavbar()"></span>
+        </button>
+        <div [class]="navColl?'collapse navbar-collapse show':'collapse navbar-collapse'" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+                <li class="nav-item">
+                    <a class="nav-link">Fruits & Veg... </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">Tea</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">Ghee</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">Milk</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">Choclates</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">Hair Care</a>
+                </li>
+                <div style="border-left: 1px solid #ccc; height: 1.8rem;margin:0.4rem 2rem 0 0;"></div>
+                <li class="nav-item">
+                    <a class="btn btn-secondary btn-sm text-center mt-1">%Offers</a>
+                </li>
+            </ul>
+            <div class="search-and-icons">
+                <form class="d-flex mb-2" role="search" style="margin-right: 2em;">
+                    <input class="form-control me-2" type="search" aria-label="Search"
+                        placeholder="Search For Products...">
+                </form>
+                <div class="user-icons d-flex mb-2">
+                    <div class="profile" routerLink="/login"><fa-icon [icon]="userIc"></fa-icon></div>
+                    <div class="wishlist"><fa-icon [icon]="heartIc"></fa-icon></div>
+                    <div class="cart" (click)="navigateToCart()">
+                        <fa-icon [icon]="bagIc"></fa-icon>
+                        <span>{{productCount}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-info d-md-flex">
+                <p>+0987654321 | +1234567890 </p>
+                <p><a href="mailto:">contact&#64;domainname.com</a></p>
+            </div>
+        </div>
+    </div>
+</nav>

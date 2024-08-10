@@ -1,0 +1,82 @@
+<div class="cart" (click)="toHideCategory()">
+    <div class="container d-flex gap-1" style="font-size: 1.2rem; font-family: 'Montserrat', sans-serif;">
+        <a class="nav-link" routerLink="/home"><fa-icon [icon]="homeIc"></fa-icon> Home /</a>
+        <a class="nav-link"> Cart</a>
+    </div>
+    <div class="container">
+        <div class="grid_12">
+            <h1>Your Cart</h1>
+        </div>
+        <ul class="items">
+            <li class="grid_4 item" *ngFor="let product of allCartProducts;let i=index" value="{{product.productPrice}}"
+                #cartProducts>
+                <a class="btn-remove" (click)="deleteProductFromCart(product.cartId)">
+                    <i><fa-icon [icon]="trashIc"></fa-icon></i>
+                </a>
+                <div class="preview">
+                    <img src="{{product.productImageUrl}}" />
+                </div>
+                <div class="details">
+                    <h3>{{product.productName}}</h3>
+                    <p>{{product.categoryName}}</p>
+                    <div>
+                        <span class="selling-price">₹ {{cartProducts.value}}</span>
+                        <span class="original-price">₹ {{cartProducts.value * 1.3}}</span>
+                    </div>
+                </div>
+                <div class="inner_container">
+
+                    <div class="col_1of2 align-center picker">
+
+                        <span (click)="quantityPlus(quantity,i)" class="btn-quantity plus">
+                            <fa-icon [icon]="plusIc"></fa-icon>
+                        </span>
+                        <div class="col_1of2 quantity-text">
+                            <input type="text" value="1" #quantity class="input-quantity">
+                        </div>
+                        <span (click)="quantityMinus(quantity,i)" class="btn-quantity minus">
+                            <fa-icon [icon]="minusIc"></fa-icon>
+                        </span>
+
+                    </div>
+                </div>
+
+            </li>
+
+        </ul>
+
+        <div class="grid_12 summary">
+            <div class="inner_container">
+                <div class="summary-content">
+                    <div class="col_1of2 meta-data">
+                        <div class="sub-total">
+                            <span>Sub Total <span>({{allCartProducts.length}} items):</span> </span>
+                            <span class="amount" style="font-weight: 700;"> ₹ {{allCartProductSum}}</span>
+                        </div>
+                        <div class="taxes">
+                            <span>Savings: </span>
+                            <span class="amount" style="font-weight: 700;"> ₹ {{allCartProductSavings}}</span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="btn-summary">
+
+                    <a [routerLink]="['/home/category',55]" [queryParams]="{'category':'Fruits & Vegetables'}"
+                        class="btn-checkout btn-reverse">Continue Shopping</a>
+
+                    <a href="#" class="btn-checkout">Checkout</a>
+
+                </div>
+            </div>
+        </div>
+        <div class="success-msg" *ngIf="successPopShow">
+            <div class="alert alert-success" role="alert">
+                <p class="d-flex align-items-center"><i style="margin-right: 1rem;font-size: 2rem;"><fa-icon
+                            [icon]="successIc"></fa-icon></i>{{successMsg}}
+                </p>
+                <button type="button" (click)="hidePopUp()" class="btn" style="font-size: 2rem;">×</button>
+            </div>
+        </div>
+    </div>
+</div>

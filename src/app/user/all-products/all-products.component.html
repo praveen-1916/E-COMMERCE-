@@ -1,0 +1,112 @@
+<main (click)="toHideCategory()">
+    <div class="slidingMotion container">
+        <div class="slider">
+            <div class="slides">
+                <input type="radio" name="radioBtn" id="radio1" #radio>
+                <input type="radio" name="radioBtn" id="radio2" #radio>
+                <input type="radio" name="radioBtn" id="radio3" #radio>
+                <input type="radio" name="radioBtn" id="radio4" #radio>
+                <input type="radio" name="radioBtn" id="radio5" #radio>
+
+                <div class="slide slide1 first">
+                    <img src="https://www.bigbasket.com/media/uploads/banner_images/hp_m_babycare_250923_400.jpg"
+                        alt="IMG">
+                </div>
+
+                <div class="slide slide2">
+                    <img src="https://www.bigbasket.com/media/uploads/banner_images/hp_m_petstore_250923_400.jpg?tr=w-1200,q=80"
+                        alt="IMG">
+                </div>
+
+                <div class="slide slide3">
+                    <img src="https://www.bigbasket.com/media/uploads/banner_images/hp_bcd_m_bcd_250923_400.jpg?tr=w-1200,q=80"
+                        alt="IMG">
+                </div>
+
+                <div class="slide slide4">
+                    <img src="https://www.bigbasket.com/media/uploads/banner_images/hp_m_health_suppliment_250923_400.jpg?tr=w-1200,q=80"
+                        alt="IMG">
+                </div>
+
+                <div class="slide slide5">
+                    <img src="https://www.bigbasket.com/media/uploads/banner_images/B2C071812062-23471-10aug24.jpg?tr=w-1200,q=80"
+                        alt="IMG">
+
+                </div>
+                <div class="navigation">
+                    <div class="navigationAuto">
+                        <label for="radio1" class="autoBtn1 autoBtn"></label>
+                        <label for="radio2" class="autoBtn2 autoBtn"></label>
+                        <label for="radio3" class="autoBtn3 autoBtn"></label>
+                        <label for="radio4" class="autoBtn4 autoBtn"></label>
+                        <label for="radio5" class="autoBtn5 autoBtn"></label>
+                    </div>
+                </div>
+
+            </div>
+            <div class="manualButtons">
+                <div class="navigationManual">
+                    <label for="radio1" class="manualBtn"></label>
+                    <label for="radio2" class="manualBtn"></label>
+                    <label for="radio3" class="manualBtn"></label>
+                    <label for="radio4" class="manualBtn"></label>
+                    <label for="radio5" class="manualBtn"></label>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="allProductOpt container d-flex justify-content-between align-items-center">
+        <div><button class="btn btn-light">EGGS, MEAT<br>AND FISH</button></div>
+        <div><button class="btn btn-light" style="height: 52.38px;">NEW<span>PASS</span></button></div>
+        <div><button class="btn btn-success" style="height: 52.38px;">AYURVEDA</button></div>
+        <div><button class="btn btn-light">BUY MORE<br>SAVE MORE</button></div>
+        <div><button class="btn btn-light">DEALS<br>OF THE WEEK</button></div>
+        <div><button class="btn btn-light">COMBO<br>STORE</button></div>
+    </div>
+
+    <div class="container bg-white">
+        <div class="heading p-4">My Smart Basket</div>
+        <div class="row">
+            <div class="col-lg-3 col-sm-6 flex-column align-items-center justify-content-center product-item my-3"
+                *ngFor="let product of allProducts" #card>
+                <div class="product">
+                    <img src="{{product.productImageUrl}}" alt="">
+                    <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
+                        <li class="icon" [routerLink]="['product',product.productId]"><fa-icon
+                                [icon]="maximizeIc"></fa-icon></li>
+                        <li class="icon mx-3"><fa-icon [icon]="heartIc"></fa-icon></li>
+                        <li class="icon" (click)="addProductToCart(product.productId)"><fa-icon
+                                [icon]="bagIc"></fa-icon>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tag bg-red">sale</div>
+                <div class="title pt-4 pb-1">{{product.productName}}</div>
+                <div class="d-flex align-content-center justify-content-center bg-green p-1 rounded">
+                    {{product.categoryName}}</div>
+                <div class=" price">₹ {{product.productPrice}}</div>
+            </div>
+            <div class="d-flex justify-content-end align-items-center pb-3">
+                <div *ngIf="currentItem > 4" class="me-3">
+                    <button class="btn btn-outline-danger" (click)="showLessProducts()">ViewLess!</button>
+                </div>
+                <div *ngIf="currentItem < cardItem">
+                    <button class="btn btn-outline-success" (click)="showMoreProducts()">ViewMore!</button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="success-msg" *ngIf="successPopShow">
+            <div class="alert alert-success" role="alert">
+                <p class="d-flex align-items-center"><i style="margin-right: 1rem;font-size: 2rem;"><fa-icon
+                            [icon]="successIc"></fa-icon></i>{{successMsg}}
+                </p>
+                <button type="button" (click)="hidePopUp()" class="btn" style="font-size: 2rem;">×</button>
+            </div>
+        </div>
+    </div>
+
+</main>

@@ -1,0 +1,59 @@
+<div class="container d-flex gap-1">
+    <a class="nav-link" routerLink="/home"><fa-icon [icon]="homeIc"></fa-icon> Home /</a>
+    <a class="nav-link"> {{categoryName}}</a>
+</div>
+<div class="container bg-white d-flex" (click)="toHideCategory()">
+    <div class="allCategories" style="width: 20%;">
+        <div class="list-group">
+            <div class="p-4 heading" style="font-size: 1.5rem;">All Categories</div>
+            <a class="list-group-item" *ngFor="let cat of allCategories" style="cursor: pointer;"
+                [routerLink]="['/home/category', cat.categoryId]" routerLinkActive="background"
+                [queryParams]="{'category':cat.categoryName}">
+                {{cat.categoryName}}
+
+            </a>
+        </div>
+    </div>
+
+    <div class="categoryProducts" style="width: 80%; margin-left: 1rem;">
+        <div class="heading p-4">{{categoryName}}</div>
+        <div class="row">
+            <div class="col-lg-3 col-sm-6 flex-column align-items-center justify-content-center product-item my-3"
+                *ngFor="let product of allCategoryProducts" #card>
+                <div class="product">
+                    <img src="{{product.productImageUrl}}" alt="">
+                    <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
+                        <li class="icon"><fa-icon [routerLink]="['/home/product',product.productId]"
+                                [icon]="maximizeIc"></fa-icon></li>
+                        <li class="icon mx-3"><fa-icon [icon]="heartIc"></fa-icon></li>
+                        <li class="icon" (click)="addProductToCart(product.productId)"><fa-icon
+                                [icon]="bagIc"></fa-icon></li>
+                    </ul>
+                </div>
+                <div class="tag bg-red">sale</div>
+                <div class="title pt-4 pb-1">{{product.productName}}</div>
+                <div class="d-flex align-content-center justify-content-center bg-green p-1 rounded">
+                    {{product.categoryName}}</div>
+                <div class=" price">₹ {{product.productPrice}}</div>
+            </div>
+            <div class="d-flex justify-content-end align-items-center pb-3">
+                <div *ngIf="currentItem > 8" class="me-3">
+                    <button class="btn btn-outline-danger" (click)="showLessProducts()">ViewLess!</button>
+                </div>
+                <div *ngIf="currentItem < cardItem">
+                    <button class="btn btn-outline-success" (click)="showMoreProducts()">ViewMore!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-msg" *ngIf="successPopShow">
+        <div class="alert alert-success" role="alert">
+            <p class="d-flex align-items-center"><i style="margin-right: 1rem;font-size: 2rem;"><fa-icon
+                        [icon]="successIc"></fa-icon></i>{{successMsg}}
+            </p>
+            <button type="button" (click)="hidePopUp()" class="btn" style="font-size: 2rem;">×</button>
+        </div>
+    </div>
+
+</div>
